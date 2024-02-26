@@ -28,4 +28,8 @@ class Puntos extends Model
     {
         return $this->belongsTo(Player::class, 'idPlayer');
     }
+    public function updates()
+    {
+        return $this->belongsTo(Updates::class, 'update', 'numero');
+    }
 }

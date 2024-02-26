@@ -291,7 +291,9 @@ Route::get('/getPlayerInfo', function (Request $request) {
         // Realizar la consulta para obtener información del jugador
         $jugador = Player::with([
             'alianza',
-            'puntos',
+            'puntos' => function ($query) use ($servidor) {
+                $query->with('updates');
+            },
             'cities' => function ($query) use ($maxUpdateCiudad, $servidor) {
                 $query->where('update', $maxUpdateCiudad)
                     ->with('isla', function ($islaQuery) use ($servidor) {
@@ -307,7 +309,7 @@ Route::get('/getPlayerInfo', function (Request $request) {
         return response()->json($jugador);
     } catch (\Exception $e) {
         // Manejar cualquier error que ocurra
-        return response()->json(['error' => 'Internal Server Error'], 500);
+        return response()->json($e, 500);
     }
 });
 

@@ -83,6 +83,10 @@ document.addEventListener("DOMContentLoaded", function () {
             playerInfo.puntos.reverse().forEach((punto) => {
                 const row = pointsTable.insertRow();
                 row.innerHTML = `
+                
+                <td>${new Date(punto.updates.fecha).toLocaleDateString(
+                    "en-GB"
+                )}</td>
                     <td>${punto.Totales.toLocaleString("en-US")}</td>
                     <td>${punto.Constructor.toLocaleString("en-US")}</td>
                     <td>${punto.NivelConstruccion.toLocaleString("en-US")}</td>

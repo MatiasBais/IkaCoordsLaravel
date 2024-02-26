@@ -15,4 +15,9 @@ class Updates extends Model
         'fecha',
         'server',
     ];
+
+    public function puntos()
+    {
+        return $this->hasMany(Puntos::class, 'numero');
+    }
 }

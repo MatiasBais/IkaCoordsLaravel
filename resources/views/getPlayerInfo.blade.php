@@ -85,6 +85,7 @@
     <h4>Puntos</h4>
     <table id="points-table">
         <tr>
+            <th>Fecha</th>
             <th>Totales</th>
             <th>Constructor</th>
             <th>Nivel Construcción</th>
