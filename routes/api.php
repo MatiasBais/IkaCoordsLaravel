@@ -403,6 +403,7 @@ Route::get('/fetch-dates', function (Request $request) {
         // Realizar la consulta para obtener las fechas de actualización
         $fechasActualizacion = Updates::select('numero', 'fecha')
             ->where('server', $servidor)
+            ->orderBy('numero', 'asc')
             ->get();
 
         // Formatear las fechas en el formato deseado
@@ -423,12 +424,13 @@ Route::get('/fetch-dates', function (Request $request) {
 
 // Ruta para calcular el ranking de aumento de puntos de los jugadores
 Route::get('/point-increase-ranking', function (Request $request) {
+    $query = "";
     try {
         // Obtener los parámetros de la solicitud
         $startDate = $request->input('startDate');
         $endDate = $request->input('endDate');
         $servidor = $request->input('server');
-        $pagina = $request->input('pagina') ? $request->input('server') : 0;
+        $pagina = $request->input('pagina') ? $request->input('pagina') : 0;
         $clasificacion = $request->input('clasificacion');
         $order = $request->input('order');
         //order 0 es para crecimiento, order 1 para decrecimiento
@@ -453,7 +455,7 @@ Route::get('/point-increase-ranking', function (Request $request) {
         else
             $query = $query . " order by a." . $clasificacion . "-b." . $clasificacion . " desc";
 
-        $query = $query . " limit " . ($pagina * 50) . ", 50;";
+        $query = $query . " limit " . ($pagina) . ", 50;";
 
         $jugadores = DB::select($query);
 
@@ -472,7 +474,7 @@ Route::get('/point-increase-ranking-alliances', function (Request $request) {
         $startDate = $request->input('startDate');
         $endDate = $request->input('endDate');
         $servidor = $request->input('server');
-        $pagina = $request->input('pagina') ? $request->input('server') : 0;
+        $pagina = $request->input('pagina') ? $request->input('pagina') : 0;
         $clasificacion = $request->input('clasificacion');
         $order = $request->input('order');
         //order 0 es para crecimiento, order 1 para decrecimiento
@@ -497,7 +499,7 @@ Route::get('/point-increase-ranking-alliances', function (Request $request) {
         else
             $query = $query . " order by sum(a." . $clasificacion . ")-sum(b." . $clasificacion . ") desc";
 
-        $query = $query . " limit " . ($pagina * 50) . ", 50;";
+        $query = $query . " limit " . ($pagina) . ", 50;";
 
         $jugadores = DB::select($query);
 

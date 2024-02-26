@@ -72,13 +72,13 @@ async function calculateRanking() {
         const response = await fetch(url);
         const rankingData = await response.json();
 
-        displayRanking(rankingData, server);
+        displayRanking(rankingData, server, pagina);
     } catch (error) {
         console.error("Error fetching point increase ranking:", error);
     }
 }
 
-function displayRanking(rankingData, server) {
+function displayRanking(rankingData, server, pagina) {
     const resultContainer = document.getElementById("resultContainer");
     resultContainer.innerHTML = "";
 
@@ -95,11 +95,11 @@ function displayRanking(rankingData, server) {
         <th>Diferencia</th>
     </tr>
 `;
-
+    let i = 0;
     rankingData.forEach((alianza) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-        <td>${
+        <td>${+pagina + ++i + " - "}${
             alianza
                 ? '<a href="/alianza/' +
                   server +
