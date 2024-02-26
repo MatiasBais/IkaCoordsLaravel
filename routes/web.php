@@ -61,3 +61,10 @@ Route::get('/player/{server}/{idplayer}', function ($server, $idplayer) {
         'idplayer' => $idplayer,
     ]);
 });
+
+Route::get('/alianza/{server}/{idalianza}', function ($server, $idalianza) {
+    return view('getAlianzaInfo', [
+        'server' => $server,
+        'idalianza' => $idalianza,
+    ]);
+});
