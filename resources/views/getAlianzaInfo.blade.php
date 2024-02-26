@@ -10,7 +10,7 @@
     <table id="alianza-table">
         <tr>
             <th class="header-cell" style="background-color: #444; color: white;">Nombre</th>
-            <td class="data-cell" id="alianza-nombre"></td>
+            <td class="data-cell" id="alianza-nombre">Cargando..</td>
         </tr>
         <tr>
             <th class="header-cell" style="background-color: #444; color: white;">Totales</th>

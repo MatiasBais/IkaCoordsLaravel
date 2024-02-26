@@ -68,3 +68,10 @@ Route::get('/alianza/{server}/{idalianza}', function ($server, $idalianza) {
         'idalianza' => $idalianza,
     ]);
 });
+
+Route::get('/isla/{server}/{idisla}', function ($server, $idisla) {
+    return view('getIslaInfo', [
+        'server' => $server,
+        'idisla' => $idisla,
+    ]);
+});
