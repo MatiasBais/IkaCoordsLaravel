@@ -25,6 +25,8 @@ async function filterCities() {
 
     const server = document.getElementById("server").value;
 
+    const pagina = document.getElementById("pagina").value;
+
     const apiUrl = "/api/filter-cities-inactives";
     const queryParams = new URLSearchParams({
         allianceName: allianceName,
@@ -34,6 +36,7 @@ async function filterCities() {
         yRangeEnd: yRangeEnd,
         cityName: cityName,
         servidor: server,
+        pagina: pagina,
     });
 
     const url = `${apiUrl}?${queryParams.toString()}`;
