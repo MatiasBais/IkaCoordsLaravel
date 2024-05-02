@@ -81,8 +81,11 @@ Route::get('/filter-cities', function (Request $request) {
         join cities on cities.playerid=players.idplayer and cities.server='" . $servidor . "' and cities.update='" . $maxUpdateCiudad . "'  
         join islas on cities.islaid = islas.idisla and islas.server='" . $servidor . "' and x >= " . $xRangeStart . "  and x <= " . $xRangeEnd . "  and y >= " . $yRangeStart . "  and y <= " . $yRangeEnd . " 
         join puntos on players.idplayer=puntos.idPlayer and puntos.update='" . $maxUpdatePuntos . "' 
-        where players.server='" . $servidor . "' and cities.nombre LIKE '%" . $cityName . "%' and players.nombre LIKE '%" . $playerName . "%'  and alianzas.nombre LIKE '%" . $allianceName . "%'
-        limit " . $pagina . ", 50";
+        where players.server='" . $servidor . "' and cities.nombre LIKE '%" . $cityName . "%' and players.nombre LIKE '%" . $playerName . "%'";
+        if ($allianceName != "") {
+            $query = $query . "  and alianzas.nombre LIKE '%" . $allianceName . "%'";
+        }
+        $query = $query . " limit " . $pagina . ", 50";
         $ciudades = DB::select($query);
 
 

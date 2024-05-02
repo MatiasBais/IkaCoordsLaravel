@@ -77,31 +77,25 @@ function displayCities(cities) {
 
     cities.forEach((city) => {
         const row = document.createElement("tr");
-        console.log(city);
         row.innerHTML = `
     <td>${city["Town-Name"]}</td>
-    <td><a href="/player/${city.server}/${city.idplayer}">${
-            city.Player
-        }</a></td>
+    <td><a href="/player/${city.server}/${city.idplayer}">${city.Player
+            }</a></td>
             <td>${city.TownLv}</td>
             <td>${city.Wonder + " (" + city.wonderlv + ")"}</td>
-            <td><a href="/alianza/${city.server}/${city.idalianza}">${
-            city.Alliance ? city.Alliance : "-"
-        }</a></td>
-            <td><a href="/isla/${city.server}/${city.idisla}">${
-            city.x + ":" + city.y
-        }</a></td>
-            <td>${
-                city.good == "1"
-                    ? "Vino"
-                    : city.good == "2"
+            <td>${city.Alliance ? '<a href="/alianza/${city.server}/${city.idalianza}">' + city.Alliance : "-"
+            }</a></td>
+            <td><a href="/isla/${city.server}/${city.idisla}">${city.x + ":" + city.y
+            }</a></td>
+            <td>${city.good == "1"
+                ? "Vino"
+                : city.good == "2"
                     ? "Mármol"
                     : city.good == "3"
-                    ? "Cristal"
-                    : "Azufre"
+                        ? "Cristal"
+                        : "Azufre"
             }</td>
-            <td>${
-                city.Totales ? city.Totales.toLocaleString("en-US") : "-"
+            <td>${city.Totales ? city.Totales.toLocaleString("en-US") : "-"
             }</td>
     `;
         table.appendChild(row);
