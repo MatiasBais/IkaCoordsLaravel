@@ -538,7 +538,7 @@ Route::get('/players/masCiudadesWorld', function (Request $request) {
         return response()->json($jugadores);
     } catch (\Exception $e) {
         // Manejar cualquier error que ocurra
-        return response()->json(['error' => 'Internal Server Error'], 500);
+        return response()->json(['error' => 'Internal Server Error' . $e], 500);
     }
 });
 
