@@ -11,14 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("player-name").textContent =
                 playerInfo.nombre;
             document.getElementById("alianzalink").textContent =
-                playerInfo.alianza.nombre;
+                playerInfo.alianza?.nombre;
             var link = document.getElementById("alianzalink");
             link.setAttribute(
                 "href",
                 "/alianza/" +
-                    playerInfo.alianza.server +
-                    "/" +
-                    playerInfo.alianza.idalianza
+                playerInfo.alianza?.server +
+                "/" +
+                playerInfo.alianza?.idalianza
             );
             document.getElementById("totales").textContent =
                 playerInfo.puntos[
@@ -60,17 +60,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 row.innerHTML = `
                     <td>${ciudad.nombre}</td>
                     <td>${ciudad.nivel}</td>
-                    <td><a href="/isla/${ciudad.isla.server}/${
-                    ciudad.isla.idisla
-                }">${ciudad.isla.x}:${ciudad.isla.y}</a></td>
-                    <td>${
-                        ciudad.isla.good === "1"
-                            ? "Vino"
-                            : ciudad.isla.good === "2"
+                    <td><a href="/isla/${ciudad.isla.server}/${ciudad.isla.idisla
+                    }">${ciudad.isla.x}:${ciudad.isla.y}</a></td>
+                    <td>${ciudad.isla.good === "1"
+                        ? "Vino"
+                        : ciudad.isla.good === "2"
                             ? "Mármol"
                             : ciudad.isla.good === "3"
-                            ? "Cristal"
-                            : "Azufre"
+                                ? "Cristal"
+                                : "Azufre"
                     }</td>
                     <td>${ciudad.isla.goodlv}</td>
                     <td>${ciudad.isla.woodlv}</td>
@@ -92,8 +90,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     <td>${punto.NivelConstruccion.toLocaleString("en-US")}</td>
                     <td>${punto.Investigadores.toLocaleString("en-US")}</td>
                     <td>${punto.NivelInvestigadores.toLocaleString(
-                        "en-US"
-                    )}</td>
+                    "en-US"
+                )}</td>
                     <td>${punto.Generales.toLocaleString("en-US")}</td>
                     <td>${punto.Oro.toLocaleString("en-US")}</td>
                     <td>${punto.Donacion.toLocaleString("en-US")}</td>

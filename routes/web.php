@@ -75,3 +75,19 @@ Route::get('/isla/{server}/{idisla}', function ($server, $idisla) {
         'idisla' => $idisla,
     ]);
 });
+
+Route::get('/worldStatistics/clasiPlayer', function () {
+    return view('worldClasiPlayers');
+});
+
+Route::get('/worldStatistics/clasiAlianza', function () {
+    return view('worldClasiAlianza');
+});
+
+Route::get('/worldStatistics/mayorIntendencia', function () {
+    return view('worldMayorIntendencia');
+});
+
+Route::get('/worldStatistics/masCiudades', function () {
+    return view('worldMasCiudades');
+});

@@ -515,3 +515,111 @@ Route::get('/point-increase-ranking-alliances', function (Request $request) {
         return response()->json($e, 500);
     }
 });
+
+// Ruta para obtener jugadores con más ciudades
+Route::get('/players/masCiudadesWorld', function (Request $request) {
+    try {
+        $pagina = $request->input('pagina');
+        // Realizar la consulta para obtener los jugadores con más ciudades
+        $jugadores = "select players.nombre as 'nombre',
+        players.idplayer, 
+        players.server,
+        alianzas.nombre as 'Alianza',
+        alianzas.idalianza,
+        count(cities.idcity) as Cantidad 
+        from players 
+        join cities on playerid=idplayer and players.server = cities.server and cities.update in(select max(numero) from updates group by updates.server)
+        left outer join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server  
+                group by idplayer, players.server
+                order by Cantidad desc
+                limit " . $pagina . ",50";
+        $jugadores = DB::select($jugadores);
+        // Devolver los jugadores con más ciudades
+        return response()->json($jugadores);
+    } catch (\Exception $e) {
+        // Manejar cualquier error que ocurra
+        return response()->json(['error' => 'Internal Server Error'], 500);
+    }
+});
+
+// Ruta para obtener las ciudades con el mayor nivel
+Route::get('/cities/mayorNivelWorld', function (Request $request) {
+    try {
+        $pagina = $request->input('pagina');
+        // Realizar la consulta para obtener los jugadores con más ciudades
+        $jugadores = "select players.nombre as 'nombre',
+        players.idplayer, 
+        players.server,
+        alianzas.nombre as 'Alianza',
+        alianzas.idalianza,
+        nivel,
+        cities.nombre as 'ciudad',
+        x,
+        y,
+        islaid
+        from players 
+        join cities on playerid=idplayer and players.server = cities.server and cities.update in(select max(numero) from updates group by updates.server)
+        left outer join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server
+        join islas on islaid=idisla and islas.server=cities.server
+                order by nivel desc
+                limit " . $pagina . ",50";
+        $jugadores = DB::select($jugadores);
+        // Devolver los jugadores con más ciudades
+        return response()->json($jugadores);
+    } catch (\Exception $e) {
+        // Manejar cualquier error que ocurra
+        return response()->json(['error' => 'Internal Server Error'], 500);
+    }
+});
+
+
+Route::get('/puntos/playersWorld', function (Request $request) {
+    try {
+        $pagina = $request->input('pagina');
+        $clasificacion = $request->input('clasificacion');
+
+        // Realizar la consulta para obtener los jugadores con más ciudades
+        $jugadores = "select players.nombre as 'nombre',
+        players.idplayer, 
+        players.server,
+        alianzas.nombre as 'Alianza',
+        alianzas.idalianza,
+        " . $clasificacion . " as 'Puntos'
+        from players 
+        join puntos on players.idplayer = puntos.idplayer and puntos.update in(select max(numero) from updates group by updates.server)
+        left outer join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server
+		order by " . $clasificacion . " desc
+                limit " . $pagina . ",50";
+        $jugadores = DB::select($jugadores);
+        // Devolver los jugadores con más ciudades
+        return response()->json($jugadores);
+    } catch (\Exception $e) {
+        // Manejar cualquier error que ocurra
+        return response()->json(['error' => 'Internal Server Error'], 500);
+    }
+});
+
+Route::get('/puntos/alianzasWorld', function (Request $request) {
+    try {
+        $pagina = $request->input('pagina');
+        $clasificacion = $request->input('clasificacion');
+
+        // Realizar la consulta para obtener los jugadores con más ciudades
+        $jugadores = "select  alianzas.server,
+        alianzas.nombre as 'Alianza',
+        alianzas.idalianza,
+        sum(" . $clasificacion . ") as 'Puntos' 
+        from players 
+        join puntos on players.idplayer = puntos.idplayer and puntos.update in(select max(numero) from updates group by updates.server)
+        join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server
+        group by alianzas.idalianza, alianzas.nombre, alianzas.server
+		order by sum(" . $clasificacion . ") desc
+                limit " . $pagina . ",50";
+        $jugadores = DB::select($jugadores);
+        // Devolver los jugadores con más ciudades
+        return response()->json($jugadores);
+    } catch (\Exception $e) {
+        // Manejar cualquier error que ocurra
+        return response()->json(['error' => 'Internal Server Error' . $e], 500);
+    }
+});
