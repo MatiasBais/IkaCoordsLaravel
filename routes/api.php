@@ -382,7 +382,7 @@ Route::get('/puntos/alianzas', function (Request $request) {
          join players on players.idplayer = puntos.idplayer 
          join alianzas on alianzas.idalianza = players.idAlianza and alianzas.server ='" . $servidor .
             "' where players.server='" . $servidor . "' and puntos.update=" . $maxUpdatePuntos . "
-         group by (alianzas.idAlianza) order by puntos DESC limit " . ($pagina) . ", 50";
+         group by alianzas.idAlianza, alianzas.nombre order by puntos DESC limit " . ($pagina) . ", 50";
 
         $puntosAlianzas = DB::select($puntosAlianzas);
 
@@ -495,7 +495,7 @@ Route::get('/point-increase-ranking-alliances', function (Request $request) {
             " AND players.server = '" . $servidor . "' " .
             " AND ua.server = '" . $servidor . "' " .
             " AND ub.server = '" . $servidor . "' " .
-            " group by idalianza ";
+            " group by idalianza, alianzas.nombre ";
         if ($order == 0)
             $query = $query . " order by sum(b." . $clasificacion . ")-sum(a." . $clasificacion . ") desc";
         else
