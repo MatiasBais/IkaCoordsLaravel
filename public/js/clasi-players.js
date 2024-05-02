@@ -53,19 +53,17 @@ function displayRanking(rankingData, server, clasificacion) {
     rankingData.data.forEach((punto) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-        <td><a href="/player/${server}/${punto.player.idplayer}">${
-            punto.player.nombre
-        }</a></td>
-            <td>${
-                punto.player.alianza
-                    ? '<a href="/alianza/' +
-                      server +
-                      "/" +
-                      punto.player.idalianza +
-                      '">' +
-                      punto.player.alianza.nombre +
-                      "</a>"
-                    : "-"
+        <td><a href="/player/${server}/${punto.player.idplayer}">${punto.player.nombre
+            }</a></td>
+            <td>${punto.player.alianza
+                ? '<a href="/alianza/' +
+                server +
+                "/" +
+                punto.player.alianza.idalianza +
+                '">' +
+                punto.player.alianza.nombre +
+                "</a>"
+                : "-"
             }</td>
             <td>${punto[clasificacion].toLocaleString("en-US")}</td>
         `;
