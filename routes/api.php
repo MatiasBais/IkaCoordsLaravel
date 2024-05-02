@@ -530,7 +530,7 @@ Route::get('/players/masCiudadesWorld', function (Request $request) {
         from players 
         join cities on playerid=idplayer and players.server = cities.server and cities.update in(select max(numero) from updates group by updates.server)
         left outer join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server  
-                group by idplayer, players.server, players.nombre
+                group by idplayer, players.server, players.nombre, alianzas.nombre, alianzas.idalianza
                 order by Cantidad desc
                 limit " . $pagina . ",50";
         $jugadores = DB::select($jugadores);
