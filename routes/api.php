@@ -77,11 +77,11 @@ Route::get('/filter-cities', function (Request $request) {
         // Inicializar la consulta con las relaciones cargadas
         $query = "select players.nombre as 'Player', cities.server, players.idplayer, alianzas.idalianza, islas.wonderlv, islas.idisla, alianzas.nombre as 'Alliance', cities.nombre as 'Town-Name', cities.nivel as 'TownLv', x, y, wonderName as 'Wonder', woodlv as 'Wood', good, goodlv, Totales 
         from players
-        left outer join alianzas on players.idAlianza = alianzas.idalianza and alianzas.server='" . $servidor . "' and alianzas.nombre LIKE '%" . $allianceName . "%' 
+        left outer join alianzas on players.idAlianza = alianzas.idalianza and alianzas.server='" . $servidor . "' 
         join cities on cities.playerid=players.idplayer and cities.server='" . $servidor . "' and cities.update='" . $maxUpdateCiudad . "'  
         join islas on cities.islaid = islas.idisla and islas.server='" . $servidor . "' and x >= " . $xRangeStart . "  and x <= " . $xRangeEnd . "  and y >= " . $yRangeStart . "  and y <= " . $yRangeEnd . " 
         join puntos on players.idplayer=puntos.idPlayer and puntos.update='" . $maxUpdatePuntos . "' 
-        where players.server='" . $servidor . "' and cities.nombre LIKE '%" . $cityName . "%' and players.nombre LIKE '%" . $playerName . "%' 
+        where players.server='" . $servidor . "' and cities.nombre LIKE '%" . $cityName . "%' and players.nombre LIKE '%" . $playerName . "%'  and alianzas.nombre LIKE '%" . $allianceName . "%'
         limit " . $pagina . ", 50";
         $ciudades = DB::select($query);
 
@@ -205,7 +205,7 @@ Route::get('/getIslaInfo', function (Request $request) {
         $maxUpdateCiudad = City::where('server', $servidor)->max('update');
         $maxUpdatePuntos = Updates::where('server', $servidor)->max('numero');
 
-        if (isset($maxUpdatePuntos)) {
+        if (isset ($maxUpdatePuntos)) {
             // Realizar la consulta para obtener información de la isla
             $isla = Isla::where('idisla', $idIsla)
                 ->where('server', $servidor)
