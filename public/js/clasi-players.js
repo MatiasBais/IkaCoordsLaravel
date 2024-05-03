@@ -71,4 +71,4 @@ function displayRanking(rankingData, server, clasificacion) {
     });
 
     resultContainer.appendChild(table);
-}
+} 
