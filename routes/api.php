@@ -289,16 +289,17 @@ Route::get('/getPlayerInfo', function (Request $request) {
         $idPlayer = $request->input('idPlayer');
         $servidor = $request->input('servidor');
 
-        $maxUpdateCiudad = City::where('server', $servidor)->max('update');
+        $maxUpdate = City::where('server', $servidor)->max('update');
 
         // Realizar la consulta para obtener información del jugador
         $jugador = Player::with([
             'alianza',
-            'puntos' => function ($query) use ($servidor) {
-                $query->with('updates');
+            'puntos' => function ($query) use ($maxUpdate) {
+                $query->where('update', $maxUpdate)
+                    ->with('updates');
             },
-            'cities' => function ($query) use ($maxUpdateCiudad, $servidor) {
-                $query->where('update', $maxUpdateCiudad)
+            'cities' => function ($query) use ($maxUpdate, $servidor) {
+                $query->where('update', $maxUpdate)
                     ->with('isla', function ($islaQuery) use ($servidor) {
                         $islaQuery->where('server', $servidor);
                     });
@@ -586,7 +587,7 @@ Route::get('/puntos/playersWorld', function (Request $request) {
         alianzas.idalianza,
         " . $clasificacion . " as 'Puntos'
         from players 
-        join puntos on players.idplayer = puntos.idplayer and puntos.update in(select max(numero) from updates group by updates.server)
+        join puntos on players.idplayer = puntos.idplayer and puntos.server = players.server and puntos.update in(select max(numero) from updates group by updates.server)
         left outer join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server
 		order by " . $clasificacion . " desc
                 limit " . $pagina . ",50";
@@ -610,7 +611,7 @@ Route::get('/puntos/alianzasWorld', function (Request $request) {
         alianzas.idalianza,
         sum(" . $clasificacion . ") as 'Puntos' 
         from players 
-        join puntos on players.idplayer = puntos.idplayer and puntos.update in(select max(numero) from updates group by updates.server)
+        join puntos on players.idplayer = puntos.idplayer and puntos.server = players.server and puntos.update in(select max(numero) from updates group by updates.server)
         join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server
         group by alianzas.idalianza, alianzas.nombre, alianzas.server
 		order by sum(" . $clasificacion . ") desc
