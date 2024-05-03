@@ -43,8 +43,9 @@ Route::get('/cities/mayorNivel', function (Request $request) {
         'player' => function ($query) use ($servidor, $maxUpdatePuntos) {
             $query->where('server', $servidor)->with([
                 'alianza',
-                'puntos' => function ($query) use ($maxUpdatePuntos) {
-                    $query->where('update', $maxUpdatePuntos);
+                'puntos' => function ($query) use ($maxUpdatePuntos, $servidor) {
+                    $query->where('update', $maxUpdatePuntos)
+                        ->where('server', $servidor);
                 }
             ]);
         }
@@ -267,7 +268,7 @@ Route::get('/players/masCiudades', function (Request $request) {
         count(cities.idcity) as Cantidad 
         from players 
         join cities on playerid=idplayer and cities.update = " . $maxUpdateCiudad . " 
-        join puntos on puntos.idplayer = players.idplayer and puntos.update='" . $maxUpdatePuntos . "' 
+        join puntos on puntos.idplayer = players.idplayer and puntos.server=players.server and puntos.update='" . $maxUpdatePuntos . "' 
         left outer join alianzas on players.idalianza = alianzas.idalianza and alianzas.server='" . $servidor . "'  
                 where players.server='" . $servidor . "' and cities.server='" . $servidor . "'   
                 group by idplayer 
