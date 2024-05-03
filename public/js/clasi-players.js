@@ -50,22 +50,22 @@ function displayRanking(rankingData, server, clasificacion) {
         </tr>
     `;
 
-    rankingData.data.forEach((punto) => {
+    rankingData.forEach((punto) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-        <td><a href="/player/${server}/${punto.player.idplayer}">${punto.player.nombre
+        <td><a href="/player/${punto.server}/${punto.idplayer}">${punto.nombre
             }</a></td>
-            <td>${punto.player.alianza
+            <td>${punto.Alianza
                 ? '<a href="/alianza/' +
-                server +
+                punto.server +
                 "/" +
-                punto.player.alianza.idalianza +
+                punto.idalianza +
                 '">' +
-                punto.player.alianza.nombre +
+                punto.Alianza +
                 "</a>"
                 : "-"
             }</td>
-            <td>${punto[clasificacion].toLocaleString("en-US")}</td>
+            <td>${punto.Puntos.toLocaleString("en-US")}</td>
         `;
         table.appendChild(row);
     });

@@ -351,22 +351,26 @@ Route::get('/filter-players', function (Request $request) {
 // Ruta para obtener puntos de los jugadores
 Route::get('/puntos/players', function (Request $request) {
     try {
-        // Obtener los parámetros de la solicitud
-        $servidor = $request->input('servidor');
         $pagina = $request->input('pagina');
-        $maxUpdatePuntos = Updates::where('server', $servidor)->max('numero');
+        $servidor = $request->input('servidor');
+        $clasificacion = $request->input('clasificacion');
 
-        // Realizar la consulta para obtener los puntos de los jugadores
-        $puntosJugadores = Puntos::with(['player.alianza'])
-            ->whereHas('player', function ($query) use ($servidor) {
-                $query->where('server', $servidor);
-            })
-            ->where('update', $maxUpdatePuntos)
-            ->orderBy($request->input('clasificacion'), 'DESC')
-            ->paginate(50, ['*'], 'page', $pagina);
-
-        // Devolver los puntos de los jugadores
-        return response()->json($puntosJugadores);
+        // Realizar la consulta para obtener los jugadores con más ciudades
+        $jugadores = "select players.nombre as 'nombre',
+        players.idplayer, 
+        players.server,
+        alianzas.nombre as 'Alianza',
+        alianzas.idalianza,
+        " . $clasificacion . " as 'Puntos'
+        from players 
+        join puntos on players.idplayer = puntos.idplayer and puntos.server = players.server and puntos.update in(select max(numero) from updates group by updates.server)
+        left outer join alianzas on players.idalianza = alianzas.idalianza and alianzas.server=players.server
+        where players.server = '" . $servidor . "' 
+		order by " . $clasificacion . " desc
+                limit " . $pagina . ",50";
+        $jugadores = DB::select($jugadores);
+        // Devolver los jugadores con más ciudades
+        return response()->json($jugadores);
     } catch (\Exception $e) {
         // Manejar cualquier error que ocurra
         return response()->json(['error' => 'Internal Server Error'], 500);
