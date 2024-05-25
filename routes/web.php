@@ -91,3 +91,7 @@ Route::get('/worldStatistics/mayorIntendencia', function () {
 Route::get('/worldStatistics/masCiudades', function () {
     return view('worldMasCiudades');
 });
+
+Route::get('/torneoRufian', function () {
+    return view('torneoRufian');
+});

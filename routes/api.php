@@ -207,41 +207,37 @@ Route::get('/getIslaInfo', function (Request $request) {
         $servidor = $request->input('servidor');
         // Obtener los máximos updates para ciudades y puntos
         $maxUpdateCiudad = City::where('server', $servidor)->max('update');
-        $maxUpdatePuntos = Updates::where('server', $servidor)->max('numero');
 
-        if (isset ($maxUpdatePuntos)) {
-            // Realizar la consulta para obtener información de la isla
-            $isla = Isla::where('idisla', $idIsla)
-                ->where('server', $servidor)
-                ->with([
-                    'cities' => function ($query) use ($servidor, $maxUpdateCiudad, $maxUpdatePuntos) {
-                        $query->where('server', $servidor)
-                            ->where('update', $maxUpdateCiudad)
-                            ->with([
-                                'player' => function ($query) use ($servidor, $maxUpdatePuntos) {
-                                    $query->where('server', $servidor)
-                                        ->with([
-                                            'puntos' => function ($query) use ($maxUpdatePuntos) {
-                                                $query->where('update', $maxUpdatePuntos);
-                                            }
-                                        ])
-                                        ->with([
-                                            'alianza' => function ($query) use ($servidor) {
-                                                $query->where('server', $servidor);
-                                            }
-                                        ]);
-                                }
-                            ]);
-                    }
-                ])
-                ->first();
+        // Realizar la consulta para obtener información de la isla
+        $isla = Isla::where('idisla', $idIsla)
+            ->where('server', $servidor)
+            ->with([
+                'cities' => function ($query) use ($servidor, $maxUpdateCiudad) {
+                    $query->where('server', $servidor)
+                        ->where('update', $maxUpdateCiudad)
+                        ->with([
+                            'player' => function ($query) use ($servidor, $maxUpdateCiudad) {
+                                $query->where('server', $servidor)
+                                    ->with([
+                                        'puntos' => function ($query) use ($maxUpdateCiudad, $servidor) {
+                                            $query->where('update', $maxUpdateCiudad)
+                                                ->where('server', $servidor);
+                                        }
+                                    ])
+                                    ->with([
+                                        'alianza' => function ($query) use ($servidor) {
+                                            $query->where('server', $servidor);
+                                        }
+                                    ]);
+                            }
+                        ]);
+                }
+            ])
+            ->first();
 
-            // Devolver la información de la isla
-            return response()->json($isla);
-        } else {
-            // Manejar el caso donde no se encontró ningún valor para $maxUpdatePuntos
-            return response()->json(['error' => 'No se encontró ningún valor para $maxUpdatePuntos'], 500);
-        }
+        // Devolver la información de la isla
+        return response()->json($isla);
+
     } catch (\Exception $e) {
         // Manejar cualquier error que ocurra
         return response()->json(['error' => 'Internal Server Error' . $e], 500);
@@ -627,5 +623,25 @@ Route::get('/puntos/alianzasWorld', function (Request $request) {
     } catch (\Exception $e) {
         // Manejar cualquier error que ocurra
         return response()->json(['error' => 'Internal Server Error' . $e], 500);
+    }
+});
+
+Route::get('/torneo', function (Request $request) {
+    try {
+        $clasificacion = $request->input('ranking');
+
+        // Sanitize input to prevent SQL injection
+        if (!preg_match('/^[a-zA-Z0-9_]+$/', $clasificacion)) {
+            return response()->json(['error' => 'Invalid ranking parameter'], 400);
+        }
+
+        // Realizar la consulta para obtener los jugadores con más ciudades
+        $jugadores = DB::select("SELECT * FROM $clasificacion ORDER BY points DESC");
+
+        // Devolver los jugadores con más ciudades
+        return response()->json($jugadores);
+    } catch (\Exception $e) {
+        // Manejar cualquier error que ocurra
+        return response()->json(['error' => 'Internal Server Error: ' . $e->getMessage()], 500);
     }
 });

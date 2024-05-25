@@ -10,16 +10,23 @@
         <option value="Alpha">Alpha ES</option>
         <option value="Beta">Beta ES</option>
         <option value="Delta">Delta ES</option>
+        <option value="Epsilon">Epsilon ES</option>
         <option value="Rho">Rho ES</option>
         <option value="Pi">Pi ES</option>
         <option value="Acheron">Acheron ES</option>
         <option value="Kerberos">Kerberos ES</option>
+        <option value="Aeneas">Aeneas ES</option>
+        <option value="Eurydike">Eurydike ES</option>
+        <option value="Kreon">Kreon ES</option>
+        <option value="Kalliope">Kalliope ES</option>
+        <option value="Adonis">Adonis ES</option>
         <option value="Telemachos">Telemachos ES</option>
         <option value="Persephone">Persephone ES</option>
         <option value="Ares">Ares</option>
         <option value="Pangaia1">Pangaia 1</option>
     </select>
     <script>
+    //mover telemachos ares persephone
     document.getElementById("server").addEventListener("change", function() {
         localStorage.setItem("server", document.getElementById("server").value);
         location.reload();
