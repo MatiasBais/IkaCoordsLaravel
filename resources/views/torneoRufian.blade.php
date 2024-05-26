@@ -48,7 +48,8 @@
             margin-bottom: 10px;
         }
 
-        form {
+        .ranking-selection,
+        .subirBatalla {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -110,29 +111,31 @@
         </header>
         <main>
             <section class="ranking-selection">
-                <h2>Selecciona una Clasificación</h2>
-                <form id="rankingForm">
-                    <select name="ranking" id="rankingSelect">
-                        <option value="ambas">General</option>
-                        <option value="porpuntos">Por Generales Destruidos</option>
-                        <option value="verdes">Por Batallas Ganadas</option>
-                        <!-- Add more options as needed -->
-                    </select>
-                    <button type="submit">Mostrar Ranking</button>
-                </form>
+                <h3>Selecciona una Clasificación: </h3>
+                <select name="ranking" id="rankingSelect" class="rankingSelect">
+                    <option value="7">General</option>
+                    <option value="6">Por Diferencia de Generales</option>
+                    <option value="4">Por Batallas Ganadas</option>
+                    <option value="2">Por Generales Destruidos</option>
+                    <option value="5">Por Batallas Participadas</option>
+                    <option value="8">Ligas Menores</option>
+                    <!-- Add more options as needed -->
+                </select>
             </section>
             <section class="ranking-display">
                 <h2 id="rankingTitle"></h2>
-                <table id="rankingTable" style="display: none;">
-                    <thead>
-                        <tr>
-                            <th>Posición</th>
-                            <th>Jugador</th>
-                            <th>Puntos</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div id="divTabla">
+                    <table id="rankingTable" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>Posición</th>
+                                <th>Jugador</th>
+                                <th>Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
                 <p id="errorMessage" style="display: none; color: red;"></p>
             </section>
         </main>
@@ -144,103 +147,123 @@
         <footer>
             <p>&copy; 2024 Torneo Rufián</p>
             <p><a target="_blank"
-                    href="https://docs.google.com/document/d/1rnCDY7pu3tKruk09sm6Lsdu7-d0180IZVNUOo47SioE/edit?usp=sharing">TyC</a>
+                    href="https://docs.google.com/document/d/1rnCDY7pu3tKruk09sm6Lsdu7-d0180IZVNUOo47SioE/edit?usp=sharing">Reglas</a>
             </p>
         </footer>
     </div>
     <script>
-        document.getElementById('rankingForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            const ranking = document.getElementById('rankingSelect').value;
-            const apiUrl = `/api/torneo?ranking=${encodeURIComponent(ranking)}`;
-
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        showErrorMessage(data.error);
-                    } else {
-                        displayRanking(data, ranking);
-                    }
-                })
-                .catch(error => {
-                    showErrorMessage('Failed to retrieve data. Error: ' + error.message);
-                });
+        document.getElementById('rankingSelect').addEventListener('change', function (event) {
+            let ranking = document.getElementById('rankingSelect').value;
+            let menores = false;
+            if (ranking == "8") {
+                menores = true;
+                ranking = "7";
+            }
+            fetchSheetData(ranking, ranking, menores)
         });
 
-        function displayRanking(data, ranking) {
-            const rankingTitle = document.getElementById('rankingTitle');
-            const rankingTable = document.getElementById('rankingTable');
-            const tableBody = rankingTable.querySelector('tbody');
-            const errorMessage = document.getElementById('errorMessage');
-
-            ranking = `${ranking.charAt(0).toUpperCase() + ranking.slice(1)}`
-
-            // Set the ranking title
-            if (ranking == "Verdes")
-                rankingTitle.textContent = "Por Batallas Ganadas";
-            else if (ranking == "Ambas")
-                rankingTitle.textContent = "General";
-            else
-                rankingTitle.textContent = "Por Generales Destruidos";
-
-            // Clear previous table rows
-            tableBody.innerHTML = '';
-            let i = 1;
-            // Populate table rows
-            data.forEach(row => {
-                const tr = document.createElement('tr');
-
-                const tdPosition = document.createElement('td');
-                tdPosition.textContent = i;
-                tr.appendChild(tdPosition);
-
-                const tdName = document.createElement('td');
-                tdName.textContent = row.name;
-                tr.appendChild(tdName);
-
-                const tdPoints = document.createElement('td');
-                tdPoints.textContent = row.points;
-                tr.appendChild(tdPoints);
-
-                tableBody.appendChild(tr);
-                i++;
-            });
-
-            // Show the table and hide the error message
-            rankingTable.style.display = 'table';
-            errorMessage.style.display = 'none';
-        }
 
         addEventListener("DOMContentLoaded", (event) => {
-            const ranking = document.getElementById('rankingSelect').value;
-            const apiUrl = `/api/torneo?ranking=${encodeURIComponent(ranking)}`;
-
-            fetch(apiUrl)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        showErrorMessage(data.error);
-                    } else {
-                        displayRanking(data, ranking);
-                    }
-                })
-                .catch(error => {
-                    showErrorMessage('Failed to retrieve data. Error: ' + error.message);
-                });
+            let ranking = document.getElementById('rankingSelect').value;
+            let menores = false;
+            if (ranking == "8") {
+                menores = true;
+                ranking = "7";
+            }
+            fetchSheetData(ranking, ranking, menores)
         });
 
-        function showErrorMessage(message) {
-            const errorMessage = document.getElementById('errorMessage');
-            const rankingTable = document.getElementById('rankingTable');
 
-            // Set the error message
-            errorMessage.textContent = message;
+        function extractJSON(text) {
+            const startIndex = text.indexOf('{');
+            const endIndex = text.lastIndexOf('}');
+            const jsonString = text.substring(startIndex, endIndex + 1);
+            return JSON.parse(jsonString);
+        }
 
-            // Hide the table and show the error message
-            rankingTable.style.display = 'none';
-            errorMessage.style.display = 'block';
+        async function fetchSheetData(columnIndexToDisplay, columnIndexToSort, menores) {
+            const sheetURL =
+                'https://docs.google.com/spreadsheets/d/1dkQhXsdJ-hXLgDT8eby-G1zLjpaXHLnir-TeKBnPUcc/gviz/tq'; // Replace with the URL of your text response
+            try {
+                const response = await fetch(sheetURL);
+                const text = await response.text();
+                const jsonData = extractJSON(text);
+                displaySheetData(jsonData, columnIndexToDisplay, columnIndexToSort, menores);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        async function fetchMenores() {
+            const sheetURL =
+                'https://docs.google.com/spreadsheets/d/1-XoZo3js-SQkMb-xnYtLmo1ppppss0NN_1uJduG7MDg/gviz/tq'; // Replace with the URL of your text response
+            try {
+                const response = await fetch(sheetURL);
+                const text = await response.text();
+                const jsonData = extractJSON(text);
+                let a = [];
+                jsonData.table.rows.forEach(row => {
+                    a.push(row.c[0].v);
+                });
+                return a;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        async function displaySheetData(data, columnIndexToDisplay, columnIndexToSort, menores) {
+
+            let html = '<table border="1"><tr>';
+            // Include headers for position, first, and the specified column
+            html += '<th>Posición</th>';
+            html += `<th>Jugador</th>`;
+            html += `<th>Puntos</th>`;
+            html += '</tr>';
+
+            // Sort the rows based on the specified column in descending order
+            data.table.rows.sort((a, b) => {
+                const valueA = a.c[columnIndexToSort - 1].v;
+                const valueB = b.c[columnIndexToSort - 1].v;
+                return valueB < valueA ? -1 : (valueB > valueA ? 1 : 0);
+            });
+
+            let playersList = await fetchMenores();
+            console.log(playersList)
+
+            let filteredRows = data.table.rows;
+            if (menores) {
+                filteredRows = filteredRows.filter(row => playersList.includes(row.c[0].v));
+            }
+
+
+            // Loop through sorted rows and generate table HTML
+            filteredRows.forEach((row, index) => {
+                html += '<tr>';
+                // Include position, data for the first, and the specified column
+                html += `<td>${index + 1}</td>`;
+                html += `<td>${row.c[0].v}</td>`;
+                html += `<td>${row.c[columnIndexToDisplay - 1].v}</td>`;
+                html += '</tr>';
+            });
+
+            html += '</table>';
+            let sheetDataElement = document.getElementById('divTabla');
+            if (!sheetDataElement) {
+                sheetDataElement = document.createElement("div");
+                sheetDataElement.id = "sheetData";
+                sheetDataElement.innerHTML = html;
+                document.getElementsByClassName("subirBatalla")[0].appendChild(sheetDataElement);
+            } else {
+                sheetDataElement.innerHTML = html;
+            }
+            var selectElement = document.getElementById('rankingSelect');
+
+            // Obtener el texto de la opción seleccionada
+            var selectedOptionText = selectElement.options[selectElement.selectedIndex].text;
+
+            // Asignar el texto de la opción seleccionada al elemento con ID 'rankingTitle'
+            document.getElementById("rankingTitle").innerText = selectedOptionText;
+
         }
     </script>
 </body>
