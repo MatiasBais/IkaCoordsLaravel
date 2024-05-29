@@ -626,17 +626,22 @@ Route::get('/puntos/alianzasWorld', function (Request $request) {
     }
 });
 
-Route::get('/torneo', function (Request $request) {
+Route::get('/mapa', function (Request $request) {
     try {
-        $clasificacion = $request->input('ranking');
-
-        // Sanitize input to prevent SQL injection
-        if (!preg_match('/^[a-zA-Z0-9_]+$/', $clasificacion)) {
-            return response()->json(['error' => 'Invalid ranking parameter'], 400);
-        }
+        $rl = $request->input('rl');
+        $mer = $request->input('mer');
+        $sarr = $request->input('sarr');
+        $coma = $request->input('coma');
+        $guau = $request->input('guau');
 
         // Realizar la consulta para obtener los jugadores con más ciudades
-        $jugadores = DB::select("SELECT * FROM $clasificacion ORDER BY points DESC");
+        $jugadores = DB::select('select count(cities.idcity) as cant, islaid, x, y, alianzas.idalianza, alianzas.nombre
+        from cities
+        join islas on islaid=idisla and islas.server="Alpha"
+        join players on playerid=idplayer and players.server="Alpha"
+        join alianzas on alianzas.idalianza = players.idalianza and alianzas.server="Alpha"
+        where cities.server="Alpha" and cities.update = 418 and (alianzas.nombre = "RufianesLatinos" or alianzas.nombre ="SARRACEÑOS" or alianzas.nombre ="MERCENARIOS" or alianzas.nombre ="CHUCHOS" or alianzas.nombre ="COMA")
+        group by islaid, alianzas.idalianza');
 
         // Devolver los jugadores con más ciudades
         return response()->json($jugadores);

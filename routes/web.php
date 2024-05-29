@@ -95,3 +95,7 @@ Route::get('/worldStatistics/masCiudades', function () {
 Route::get('/torneoRufian', function () {
     return view('torneoRufian');
 });
+
+Route::get('/mapa', function () {
+    return view('mapa');
+});
