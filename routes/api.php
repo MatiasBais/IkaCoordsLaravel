@@ -640,7 +640,7 @@ Route::get('/mapa', function (Request $request) {
         join cities on islaid=idisla and cities.server="Alpha" and cities.update=418
         join players on playerid=idplayer and players.server="Alpha"
         join alianzas on alianzas.idalianza = players.idalianza and alianzas.server="Alpha"
-        where islas.server="Alpha" and cities.update = 418 and (alianzas.nombre = "RufianesLatinos" or alianzas.nombre ="SARRACEÑOS" or alianzas.nombre ="MERCENARIOS" or alianzas.nombre ="CHUCHOS" or alianzas.nombre ="COMA")
+        where islas.server="Alpha" and cities.update = 433 and (alianzas.nombre = "RufianesLatinos" or alianzas.nombre ="SARRACEÑOS" or alianzas.nombre ="MERCENARIOS" or alianzas.nombre ="CHUCHOS" or alianzas.nombre ="COMA")
         group by islaid, alianzas.idalianza, x, y, alianzas.nombre');
 
         // Devolver los jugadores con más ciudades
