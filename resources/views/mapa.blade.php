@@ -36,7 +36,15 @@
 
         .checkbox-label {
             display: block;
+            align-items: center;
             margin-bottom: 5px;
+        }
+
+        .color-square {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+            display: inline-block;
         }
     </style>
 
@@ -48,15 +56,16 @@
         <canvas id="drawCanvas" width="674" height="674"></canvas>
     </div>
     <div id="controls">
-        <label class="checkbox-label"><input type="checkbox" class="nombre-checkbox" value="SARRACENOS" checked>
-            SARRACENOS</label>
-        <label class="checkbox-label"><input type="checkbox" class="nombre-checkbox" value="RufianesLatinos" checked>
-            RufianesLatinos</label>
-        <label class="checkbox-label"><input type="checkbox" class="nombre-checkbox" value="Mercenarios" checked>
-            Mercenarios</label>
-        <label class="checkbox-label"><input type="checkbox" class="nombre-checkbox" value="CHUCHOS" checked>
-            CHUCHOS</label>
-        <label class="checkbox-label"><input type="checkbox" class="nombre-checkbox" value="COMA" checked> COMA</label>
+        <label class="checkbox-label"><span class="color-square" style="background-color: green;"></span><input
+                type="checkbox" class="nombre-checkbox" value="SARRACENOS" checked> SARRACENOS</label>
+        <label class="checkbox-label"><span class="color-square" style="background-color: red;"></span><input
+                type="checkbox" class="nombre-checkbox" value="RufianesLatinos" checked> RufianesLatinos</label>
+        <label class="checkbox-label"><span class="color-square" style="background-color: orange;"></span><input
+                type="checkbox" class="nombre-checkbox" value="Mercenarios" checked> Mercenarios</label>
+        <label class="checkbox-label"><span class="color-square" style="background-color: blue;"></span><input
+                type="checkbox" class="nombre-checkbox" value="CHUCHOS" checked> CHUCHOS</label>
+        <label class="checkbox-label"><span class="color-square" style="background-color: yellow;"></span><input
+                type="checkbox" class="nombre-checkbox" value="COMA" checked> COMA</label>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
