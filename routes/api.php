@@ -637,7 +637,7 @@ Route::get('/mapa', function (Request $request) {
         // Realizar la consulta para obtener los jugadores con más ciudades
         $jugadores = DB::select('select count(cities.idcity) as cant, islaid, x, y, alianzas.idalianza, alianzas.nombre
         from islas
-        join cities on islaid=idisla and cities.server="Alpha" and cities.update=418
+        join cities on islaid=idisla and cities.server="Alpha" and cities.update=433
         join players on playerid=idplayer and players.server="Alpha"
         join alianzas on alianzas.idalianza = players.idalianza and alianzas.server="Alpha"
         where islas.server="Alpha" and cities.update = 433 and (alianzas.nombre = "RufianesLatinos" or alianzas.nombre ="SARRACEÑOS" or alianzas.nombre ="MERCENARIOS" or alianzas.nombre ="CHUCHOS" or alianzas.nombre ="COMA")
