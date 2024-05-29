@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="normalize.css">
     <meta charset="UTF-8">
-    <title>Rankings</title>
+    <title>Torneo Rufián</title>
     <style>
     header {
         background-color: #00796b;
@@ -222,6 +222,11 @@
                 <a target="_blank"
                     href="https://docs.google.com/forms/d/e/1FAIpQLSfL_ZziGh4-_mebrJUjcbc0t5uKVwBkWweqr0_lDBWRMQ_mFQ/viewform"><button>Subir
                         Batalla</button></a>
+
+            </div>
+            <div class="subirBatalla">
+                <p>El form se hará disponible el 08/06/2024 cuando comience el torneo!</p>
+
             </div>
         </main>
         <div>
