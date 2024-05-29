@@ -87,6 +87,7 @@
             const checkboxes = document.querySelectorAll('.nombre-checkbox');
             const coordinatesDisplay = document.getElementById('coordinates');
 
+
             const data = await fetchData();
             // Ensure the canvas matches the size of the image
             drawCanvas.width = 674;
@@ -114,6 +115,7 @@
             }
 
             imageContainer.addEventListener('mousemove', (event) => {
+                let selectedNombres = getSelectedNombres();
                 const rect = backgroundImage.getBoundingClientRect();
                 const x = Math.floor((event.clientX - rect.left) / (rect.right - rect.left) *
                     backgroundImage.naturalWidth);
@@ -125,7 +127,9 @@
 
                 data.forEach(coord => {
                     if (coord.x == cx.toString() && coord.y == cy.toString()) {
-                        text += `<br> ${coord.nombre}: ${coord.cant}`;
+                        if (selectedNombres.has(coord.nombre)) {
+                            text += `<br> ${coord.nombre}: ${coord.cant}`;
+                        }
                     }
                 })
 
