@@ -10,174 +10,174 @@
     <meta charset="UTF-8">
     <title>Torneo Rufián</title>
     <style>
-    header {
-        background-color: #00796b;
-        /* Teal background color with 80% opacity */
-        text-align: center;
-        /* Centers the text and image horizontally */
-        padding: 20px;
-        /* Adds some padding around the content */
-    }
+        header {
+            background-color: #00796b;
+            /* Teal background color with 80% opacity */
+            text-align: center;
+            /* Centers the text and image horizontally */
+            padding: 20px;
+            /* Adds some padding around the content */
+        }
 
-    .header-image {
-        width: 100%;
-        /* Adjust this as needed for your layout */
-        height: auto;
-        /* Maintains the aspect ratio */
-        display: block;
-        margin: 0 auto;
-        /* Centers the image */
-    }
+        .header-image {
+            width: 100%;
+            /* Adjust this as needed for your layout */
+            height: auto;
+            /* Maintains the aspect ratio */
+            display: block;
+            margin: 0 auto;
+            /* Centers the image */
+        }
 
-    h1 {
-        color: white;
-        /* Changes the text color to white for better contrast */
-        margin: 20px 0 0 0;
-        /* Adds margin on top and bottom for spacing */
-    }
+        h1 {
+            color: white;
+            /* Changes the text color to white for better contrast */
+            margin: 20px 0 0 0;
+            /* Adds margin on top and bottom for spacing */
+        }
 
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        color: #333;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
 
-    .desplegable {
-        margin: 1em;
-        background-color: #00796b;
-    }
-
-
-    .desplegable {
-        text-decoration: none;
-        color: #fff
-    }
-
-    .container {
-        width: 80%;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        margin-top: 20px;
-    }
-
-    footer {
-        text-align: center;
-        padding: 10px 0;
-        background-color: #007BFF;
-        color: #fff;
-    }
+        .desplegable {
+            margin: 1em;
+            background-color: #00796b;
+        }
 
 
-    footer p {
-        margin: 0;
-    }
+        .desplegable {
+            text-decoration: none;
+            color: #fff
+        }
 
-    main {
-        margin: 20px 0;
-    }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
 
-    .ranking-selection,
-    .ranking-display,
-    .subirBatalla {
-        margin-bottom: 20px;
-    }
-
-    .ranking-selection h2 {
-        margin-bottom: 10px;
-    }
-
-    .ranking-selection,
-    .subirBatalla {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #007BFF;
+            color: #fff;
+        }
 
 
-    select {
-        padding: 5px;
-        font-size: 16px;
-        margin-left: 10px;
-    }
+        footer p {
+            margin: 0;
+        }
 
-    button {
-        padding: 5px 10px;
-        font-size: 16px;
-        background-color: #00796b;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-    }
+        main {
+            margin: 20px 0;
+        }
 
-    button:hover {
-        background-color: #0056b3;
-    }
+        .ranking-selection,
+        .ranking-display,
+        .subirBatalla {
+            margin-bottom: 20px;
+        }
 
-    .ranking-display h2 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
+        .ranking-selection h2 {
+            margin-bottom: 10px;
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        /* Removes gaps between cells */
-        margin: 20px 0;
-        /* Adds some margin around the table */
-    }
+        .ranking-selection,
+        .subirBatalla {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    th,
-    td {
-        border: 1px solid #ddd;
-        /* Adds a border to the table cells */
-        padding: 8px;
-        /* Adds padding to the table cells */
-        text-align: left;
-        /* Aligns text to the left */
-    }
 
-    th {
-        background-color: #00796b;
-        /* Dark background for the header */
-        color: white;
-        /* White text color for the header */
-    }
+        select {
+            padding: 5px;
+            font-size: 16px;
+            margin-left: 10px;
+        }
 
-    tbody tr:nth-child(odd) {
-        background-color: #f2f2f2;
-        /* Light gray background for odd rows */
-    }
+        button {
+            padding: 5px 10px;
+            font-size: 16px;
+            background-color: #00796b;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
 
-    tbody tr:nth-child(even) {
-        background-color: #ffffff;
-        /* White background for even rows */
-    }
+        button:hover {
+            background-color: #0056b3;
+        }
 
-    p {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
+        .ranking-display h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    ul {
-        margin-left: 30px;
-        text-align: left;
-    }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* Removes gaps between cells */
+            margin: 20px 0;
+            /* Adds some margin around the table */
+        }
 
-    li {
+        th,
+        td {
+            border: 1px solid #ddd;
+            /* Adds a border to the table cells */
+            padding: 8px;
+            /* Adds padding to the table cells */
+            text-align: left;
+            /* Aligns text to the left */
+        }
 
-        margin-left: 30px;
-        text-align: left;
+        th {
+            background-color: #00796b;
+            /* Dark background for the header */
+            color: white;
+            /* White text color for the header */
+        }
 
-    }
+        tbody tr:nth-child(odd) {
+            background-color: #f2f2f2;
+            /* Light gray background for odd rows */
+        }
 
-    .batalla {
-        text-align: left;
-        font-size: 8;
-    }
+        tbody tr:nth-child(even) {
+            background-color: #ffffff;
+            /* White background for even rows */
+        }
+
+        p {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        ul {
+            margin-left: 30px;
+            text-align: left;
+        }
+
+        li {
+
+            margin-left: 30px;
+            text-align: left;
+
+        }
+
+        .batalla {
+            text-align: left;
+            font-size: 8;
+        }
     </style>
 </head>
 
@@ -226,6 +226,10 @@
             </div>
             <div class="subirBatalla">
                 <p>El form se hará disponible el 08/06/2024 cuando comience el torneo!</p>
+
+            </div>
+            <div class="subirBatalla">
+                <a target="_blank" href="/search/cities"><button>Buscar Ciudades</button></a>
 
             </div>
         </main>
@@ -493,119 +497,119 @@
 </div>
 </div>
 <script>
-document.getElementById('rankingSelect').addEventListener('change', function(event) {
-    let ranking = document.getElementById('rankingSelect').value;
-    let menores = false;
-    if (ranking == "8") {
-        menores = true;
-        ranking = "7";
-    }
-    fetchSheetData(ranking, ranking, menores)
-});
-
-
-addEventListener("DOMContentLoaded", (event) => {
-    let ranking = document.getElementById('rankingSelect').value;
-    let menores = false;
-    if (ranking == "8") {
-        menores = true;
-        ranking = "7";
-    }
-    fetchSheetData(ranking, ranking, menores)
-});
-
-
-function extractJSON(text) {
-    const startIndex = text.indexOf('{');
-    const endIndex = text.lastIndexOf('}');
-    const jsonString = text.substring(startIndex, endIndex + 1);
-    return JSON.parse(jsonString);
-}
-
-async function fetchSheetData(columnIndexToDisplay, columnIndexToSort, menores) {
-    const sheetURL =
-        'https://docs.google.com/spreadsheets/d/1dkQhXsdJ-hXLgDT8eby-G1zLjpaXHLnir-TeKBnPUcc/gviz/tq'; // Replace with the URL of your text response
-    try {
-        const response = await fetch(sheetURL);
-        const text = await response.text();
-        const jsonData = extractJSON(text);
-        displaySheetData(jsonData, columnIndexToDisplay, columnIndexToSort, menores);
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
-
-async function fetchMenores() {
-    const sheetURL =
-        'https://docs.google.com/spreadsheets/d/1-XoZo3js-SQkMb-xnYtLmo1ppppss0NN_1uJduG7MDg/gviz/tq'; // Replace with the URL of your text response
-    try {
-        const response = await fetch(sheetURL);
-        const text = await response.text();
-        const jsonData = extractJSON(text);
-        let a = [];
-        jsonData.table.rows.forEach(row => {
-            a.push(row.c[0].v);
-        });
-        return a;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
-
-async function displaySheetData(data, columnIndexToDisplay, columnIndexToSort, menores) {
-
-    let html = '<table border="1"><tr>';
-    // Include headers for position, first, and the specified column
-    html += '<th>Posición</th>';
-    html += `<th>Jugador</th>`;
-    html += `<th>Puntos</th>`;
-    html += '</tr>';
-
-    // Sort the rows based on the specified column in descending order
-    data.table.rows.sort((a, b) => {
-        const valueA = a.c[columnIndexToSort - 1].v;
-        const valueB = b.c[columnIndexToSort - 1].v;
-        return valueB < valueA ? -1 : (valueB > valueA ? 1 : 0);
+    document.getElementById('rankingSelect').addEventListener('change', function (event) {
+        let ranking = document.getElementById('rankingSelect').value;
+        let menores = false;
+        if (ranking == "8") {
+            menores = true;
+            ranking = "7";
+        }
+        fetchSheetData(ranking, ranking, menores)
     });
 
-    let playersList = await fetchMenores();
-    console.log(playersList)
 
-    let filteredRows = data.table.rows;
-    if (menores) {
-        filteredRows = filteredRows.filter(row => playersList.includes(row.c[0].v));
+    addEventListener("DOMContentLoaded", (event) => {
+        let ranking = document.getElementById('rankingSelect').value;
+        let menores = false;
+        if (ranking == "8") {
+            menores = true;
+            ranking = "7";
+        }
+        fetchSheetData(ranking, ranking, menores)
+    });
+
+
+    function extractJSON(text) {
+        const startIndex = text.indexOf('{');
+        const endIndex = text.lastIndexOf('}');
+        const jsonString = text.substring(startIndex, endIndex + 1);
+        return JSON.parse(jsonString);
     }
 
+    async function fetchSheetData(columnIndexToDisplay, columnIndexToSort, menores) {
+        const sheetURL =
+            'https://docs.google.com/spreadsheets/d/1dkQhXsdJ-hXLgDT8eby-G1zLjpaXHLnir-TeKBnPUcc/gviz/tq'; // Replace with the URL of your text response
+        try {
+            const response = await fetch(sheetURL);
+            const text = await response.text();
+            const jsonData = extractJSON(text);
+            displaySheetData(jsonData, columnIndexToDisplay, columnIndexToSort, menores);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
-    // Loop through sorted rows and generate table HTML
-    filteredRows.forEach((row, index) => {
-        html += '<tr>';
-        // Include position, data for the first, and the specified column
-        html += `<td>${index + 1}</td>`;
-        html += `<td>${row.c[0].v}</td>`;
-        html += `<td>${row.c[columnIndexToDisplay - 1].v}</td>`;
+    async function fetchMenores() {
+        const sheetURL =
+            'https://docs.google.com/spreadsheets/d/1-XoZo3js-SQkMb-xnYtLmo1ppppss0NN_1uJduG7MDg/gviz/tq'; // Replace with the URL of your text response
+        try {
+            const response = await fetch(sheetURL);
+            const text = await response.text();
+            const jsonData = extractJSON(text);
+            let a = [];
+            jsonData.table.rows.forEach(row => {
+                a.push(row.c[0].v);
+            });
+            return a;
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    async function displaySheetData(data, columnIndexToDisplay, columnIndexToSort, menores) {
+
+        let html = '<table border="1"><tr>';
+        // Include headers for position, first, and the specified column
+        html += '<th>Posición</th>';
+        html += `<th>Jugador</th>`;
+        html += `<th>Puntos</th>`;
         html += '</tr>';
-    });
 
-    html += '</table>';
-    let sheetDataElement = document.getElementById('divTabla');
-    if (!sheetDataElement) {
-        sheetDataElement = document.createElement("div");
-        sheetDataElement.id = "sheetData";
-        sheetDataElement.innerHTML = html;
-        document.getElementsByClassName("subirBatalla")[0].appendChild(sheetDataElement);
-    } else {
-        sheetDataElement.innerHTML = html;
+        // Sort the rows based on the specified column in descending order
+        data.table.rows.sort((a, b) => {
+            const valueA = a.c[columnIndexToSort - 1].v;
+            const valueB = b.c[columnIndexToSort - 1].v;
+            return valueB < valueA ? -1 : (valueB > valueA ? 1 : 0);
+        });
+
+        let playersList = await fetchMenores();
+        console.log(playersList)
+
+        let filteredRows = data.table.rows;
+        if (menores) {
+            filteredRows = filteredRows.filter(row => playersList.includes(row.c[0].v));
+        }
+
+
+        // Loop through sorted rows and generate table HTML
+        filteredRows.forEach((row, index) => {
+            html += '<tr>';
+            // Include position, data for the first, and the specified column
+            html += `<td>${index + 1}</td>`;
+            html += `<td>${row.c[0].v}</td>`;
+            html += `<td>${row.c[columnIndexToDisplay - 1].v}</td>`;
+            html += '</tr>';
+        });
+
+        html += '</table>';
+        let sheetDataElement = document.getElementById('divTabla');
+        if (!sheetDataElement) {
+            sheetDataElement = document.createElement("div");
+            sheetDataElement.id = "sheetData";
+            sheetDataElement.innerHTML = html;
+            document.getElementsByClassName("subirBatalla")[0].appendChild(sheetDataElement);
+        } else {
+            sheetDataElement.innerHTML = html;
+        }
+        var selectElement = document.getElementById('rankingSelect');
+
+        // Obtener el texto de la opción seleccionada
+        var selectedOptionText = selectElement.options[selectElement.selectedIndex].text;
+
+        // Asignar el texto de la opción seleccionada al elemento con ID 'rankingTitle'
+        document.getElementById("rankingTitle").innerText = selectedOptionText;
+
     }
-    var selectElement = document.getElementById('rankingSelect');
-
-    // Obtener el texto de la opción seleccionada
-    var selectedOptionText = selectElement.options[selectElement.selectedIndex].text;
-
-    // Asignar el texto de la opción seleccionada al elemento con ID 'rankingTitle'
-    document.getElementById("rankingTitle").innerText = selectedOptionText;
-
-}
 </script>
 </body>
 
