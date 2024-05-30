@@ -628,25 +628,48 @@ Route::get('/puntos/alianzasWorld', function (Request $request) {
 
 Route::get('/mapa', function (Request $request) {
     try {
-        $rl = $request->input('rl');
-        $mer = $request->input('mer');
-        $sarr = $request->input('sarr');
-        $coma = $request->input('coma');
-        $guau = $request->input('guau');
+        $a1 = $request->input('a1');
+        $a2 = $request->input('a2');
+        $a3 = $request->input('a3');
+        $a4 = $request->input('a4');
+        $a5 = $request->input('a5');
+        $server = $request->input('server');
 
-        // Realizar la consulta para obtener los jugadores con más ciudades
-        $jugadores = DB::select('select count(cities.idcity) as cant, islaid, x, y, alianzas.idalianza, alianzas.nombre
+        // Initialize the base query
+        $query = 'select count(cities.idcity) as cant, islaid, x, y, alianzas.idalianza, alianzas.nombre
         from islas
-        join cities on islaid=idisla and cities.server="Alpha" and cities.update=433
-        join players on playerid=idplayer and players.server="Alpha"
-        join alianzas on alianzas.idalianza = players.idalianza and alianzas.server="Alpha"
-        where islas.server="Alpha" and cities.update = 433 and (alianzas.nombre = "RufianesLatinos" or alianzas.nombre ="SARRACEÑOS" or alianzas.nombre ="MERCENARIOS" or alianzas.nombre ="CHUCHOS" or alianzas.nombre ="COMA")
-        group by islaid, alianzas.idalianza, x, y, alianzas.nombre');
+        join cities on islaid=idisla and cities.server="' . $server . '" and cities.update in(select max(numero) from updates where updates.server = "' . $server . '")
+        join players on playerid=idplayer and players.server="' . $server . '"
+        join alianzas on alianzas.idalianza = players.idalianza and alianzas.server="' . $server . '"
+        where islas.server="' . $server . '" and cities.update in(select max(numero) from updates where updates.server = "' . $server . '") and (alianzas.nombre = ? or alianzas.nombre = ?)';
 
-        // Devolver los jugadores con más ciudades
+        // Prepare the bindings array
+        $bindings = [$a1, $a2];
+
+        // Append conditions and bindings for a3, a4, and a5 if they are defined
+        if ($a3) {
+            $query .= ' or alianzas.nombre = ?';
+            $bindings[] = $a3;
+        }
+        if ($a4) {
+            $query .= ' or alianzas.nombre = ?';
+            $bindings[] = $a4;
+        }
+        if ($a5) {
+            $query .= ' or alianzas.nombre = ?';
+            $bindings[] = $a5;
+        }
+
+        // Finalize the query
+        $query .= ' group by islaid, alianzas.idalianza, x, y, alianzas.nombre';
+
+        // Execute the query with bindings
+        $jugadores = DB::select($query, $bindings);
+
+        // Return the players with the most cities
         return response()->json($jugadores);
     } catch (\Exception $e) {
-        // Manejar cualquier error que ocurra
+        // Handle any error that occurs
         return response()->json(['error' => 'Internal Server Error: ' . $e->getMessage()], 500);
     }
 });
