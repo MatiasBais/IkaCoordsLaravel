@@ -673,3 +673,20 @@ Route::get('/mapa', function (Request $request) {
         return response()->json(['error' => 'Internal Server Error: ' . $e->getMessage()], 500);
     }
 });
+
+Route::get('/ikariamguru', function (Request $request) {
+    try {
+        $id = $request->input('id');
+
+        // Initialize the base query
+        $query = 'select * from ikariamguru where id="' . $id . '" and hasta >= CURRENT_DATE;';
+        // Execute the query with bindings
+        $jugadores = DB::select($query);
+
+        // Return the players with the most cities
+        return response()->json($jugadores);
+    } catch (\Exception $e) {
+        // Handle any error that occurs
+        return response()->json(['error' => 'Internal Server Error: ' . $e->getMessage()], 500);
+    }
+});
