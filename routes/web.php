@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\ItemController;
+
+Route::resource('items', ItemController::class);
 
 Route::get('/', function () {
     return view('searchCity');

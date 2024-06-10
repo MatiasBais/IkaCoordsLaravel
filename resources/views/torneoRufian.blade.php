@@ -97,6 +97,12 @@
             justify-content: center;
         }
 
+        .ultimasBatallas {
+            display: block;
+            align-items: center;
+            justify-content: center;
+        }
+
 
         select {
             padding: 5px;
@@ -224,10 +230,7 @@
                         Batalla</button></a>
 
             </div>
-            <div class="subirBatalla">
-                <p>El form se hará disponible el 08/06/2024 cuando comience el torneo!</p>
 
-            </div>
             <div class="subirBatalla">
                 <a target="_blank" href="/search/cities"><button>Buscar Ciudades</button></a>
 
@@ -343,9 +346,6 @@
                                     Para ello tendrá un espacio bien delimitado en <a target="_blank"
                                         href="https://forms.gle/LidzBUZuQj7js7Cf6"><span
                                             style="color:rgb(17, 85, 204);">el formulario</span></a>.</li>
-                                <li>Actualización (01/10/2021): A partir de la fecha 01/10/21, no se contabilizarán las
-                                    batallas que disputen los participantes contra jugadores que no formen parte de
-                                    alguna alianza.</li>
                             </ul>
                             <p style="text-align:justify;"><span style="color:rgb(33, 33, 33);">Respecto de los
                                     premios:</span></p>
@@ -565,11 +565,15 @@
         html += `<th>Puntos</th>`;
         html += '</tr>';
 
+        console.log(data.table.rows)
+        let aaa = 0;
         // Sort the rows based on the specified column in descending order
         data.table.rows.sort((a, b) => {
+            console.log(aaa);
             const valueA = a.c[columnIndexToSort - 1].v;
             const valueB = b.c[columnIndexToSort - 1].v;
             return valueB < valueA ? -1 : (valueB > valueA ? 1 : 0);
+            aaa++
         });
 
         let playersList = await fetchMenores();
