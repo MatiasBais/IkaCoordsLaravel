@@ -102,3 +102,7 @@ Route::get('/torneoRufian', function () {
 Route::get('/mapa', function () {
     return view('mapa');
 });
+
+Route::get('/mapaBancosRL', function () {
+    return view('bancos');
+});
