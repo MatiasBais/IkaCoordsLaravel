@@ -84,7 +84,7 @@ function displayCities(cities) {
             }</a></td>
             <td>${city.TownLv}</td>
             <td>${city.Wonder + " (" + city.wonderlv + ")"}</td>
-            <td>${city.Alliance ? '<a href="/alianza/${city.server}/${city.idalianza}">' + city.Alliance : "-"
+            <td>${city.Alliance ? '<a href="/alianza/' + city.server + '/' + city.idalianza + '">' + city.Alliance : "-"
             }</a></td>
             <td><a href="/isla/${city.server}/${city.idisla}">${city.x + ":" + city.y
             }</a></td>
