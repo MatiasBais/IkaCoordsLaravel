@@ -221,6 +221,22 @@
                 "nombre": "RL"
             },
             {
+                "cant": "Armada ARG",
+                "islaid": 1492,
+                "x": 86,
+                "y": 11,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "Aramada ARG",
+                "islaid": 1492,
+                "x": 93,
+                "y": 5,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
                 "cant": "Ternerito",
                 "islaid": 1482,
                 "x": 93,
@@ -293,7 +309,7 @@
                 "nombre": "RL"
             },
             {
-                "cant": "banco Player",
+                "cant": "Polis",
                 "islaid": 1491,
                 "x": 90,
                 "y": 23,
@@ -301,10 +317,66 @@
                 "nombre": "RL"
             },
             {
-                "cant": "banco Alvaro",
+                "cant": "El Mini Nak",
+                "islaid": 1492,
+                "x": 85,
+                "y": 21,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "_HawkEye3213",
                 "islaid": 1492,
                 "x": 89,
                 "y": 6,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "Romeo4",
+                "islaid": 1492,
+                "x": 97,
+                "y": 51,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "Kovis",
+                "islaid": 1492,
+                "x": 91,
+                "y": 16,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "Camarero222",
+                "islaid": 1492,
+                "x": 44,
+                "y": 3,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "FititoPoderoso",
+                "islaid": 1492,
+                "x": 93,
+                "y": 5,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "FititoPoderoso",
+                "islaid": 1492,
+                "x": 41,
+                "y": 99,
+                "idalianza": 0,
+                "nombre": "RL"
+            },
+            {
+                "cant": "Francisco Milon",
+                "islaid": 1492,
+                "x": 38,
+                "y": 98,
                 "idalianza": 0,
                 "nombre": "RL"
             }
