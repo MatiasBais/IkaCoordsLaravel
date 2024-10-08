@@ -82,11 +82,21 @@ Route::get('/filter-cities', function (Request $request) {
         join cities on cities.playerid=players.idplayer and cities.server='" . $servidor . "' and cities.update='" . $maxUpdateCiudad . "'  
         join islas on cities.islaid = islas.idisla and islas.server='" . $servidor . "' and x >= " . $xRangeStart . "  and x <= " . $xRangeEnd . "  and y >= " . $yRangeStart . "  and y <= " . $yRangeEnd . " 
         join puntos on players.idplayer=puntos.idPlayer and puntos.update='" . $maxUpdatePuntos . "' 
-        where players.server='" . $servidor . "' and cities.nombre LIKE '%" . $cityName . "%' and players.nombre LIKE '%" . $playerName . "%'";
+        where players.server='" . $servidor . "' and cities.nombre LIKE '%" . $cityName . "%'";
+
+        if ($playerName == "BOOOOCA") {
+            $query = $query . "and players.idplayer in (100010, 100044, 100085, 100131, 100182, 100220, 100254, 100389, 100400, 100442, 100468, 100573, 100649, 100686, 100737, 100755, 100803, 100831, 100846, 100918, 100960, 101006, 101034, 101063, 101112, 101150, 101283, 101331, 101354, 101578, 101601, 101632, 101643, 101679, 101705, 101735, 101787, 101821, 101840, 101943, 101962, 101995, 102021, 102037, 102067, 102102, 102123, 102168, 102188, 102231, 102340, 102362, 102390, 102396, 102404, 102417, 102437, 102443, 102456, 102464, 102482, 102582, 102595, 102614, 102645, 102652, 102658, 102674, 102688, 102701, 102770, 102789, 102800, 102827, 102859, 102874, 102886, 102897, 102921, 102932, 102942, 103278, 103331, 101393, 100276, 101476)";
+        } else {
+            $query = $query . "and players.nombre LIKE '%" . $playerName . "%'";
+        }
+
         if ($allianceName != "") {
             $query = $query . "  and alianzas.nombre LIKE '%" . $allianceName . "%'";
         }
-        $query = $query . " limit " . $pagina . ", 50";
+
+        if ($playerName != "BOOOOCA") {
+            $query = $query . " limit " . $pagina . ", 50";
+        }
         $ciudades = DB::select($query);
 
 
