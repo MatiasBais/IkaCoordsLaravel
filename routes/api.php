@@ -13,20 +13,118 @@ Route::get('/getAlianzaInfo', function (Request $request) {
     $servidor = $request->input('servidor');
     $idAlianza = $request->input('idAlianza');
 
-
     $maxUpdatePuntos = Updates::where('server', $servidor)->max('numero');
+    if ($idAlianza == "BOOOOCA") {
 
-    $alianza = Alianza::with([
-        'players' => function ($query) use ($servidor, $maxUpdatePuntos) {
-            $query->where('server', $servidor)->with([
+        $jugadoresEspecificos = [100010, 100044, 100085, 100131, 100182, 100220, 100254, 100389, 100400, 100442, 100468, 100573, 100649, 100686, 100737, 100755, 100803, 100831, 100846, 100918, 100960, 101006, 101034, 101063, 101112, 101150, 101283, 101331, 101354, 101578, 101601, 101632, 101643, 101679, 101705, 101735, 101787, 101821, 101840, 101943, 101962, 101995, 102021, 102037, 102067, 102102, 102123, 102168, 102188, 102231, 102340, 102362, 102390, 102396, 102404, 102417, 102437, 102443, 102456, 102464, 102482, 102582, 102595, 102614, 102645, 102652, 102658, 102674, 102688, 102701, 102770, 102789, 102800, 102827, 102859, 102874, 102886, 102897, 102921, 102932, 102942, 103278, 103331, 101393, 100276, 101476];
+
+        $jugadores = Player::where('server', $servidor)
+            ->whereIn('idplayer', $jugadoresEspecificos)
+            ->with([
                 'puntos' => function ($query) use ($maxUpdatePuntos) {
                     $query->where('update', $maxUpdatePuntos);
-                }
-            ]);
-        }
-    ])->where('idalianza', $idAlianza)->where('server', $servidor)->first();
 
-    return response()->json($alianza);
+                }
+            ])
+            ->get();
+
+        $jugadoresArray = $jugadores->map(function ($jugador) {
+            return [
+                'idplayer' => $jugador->idplayer,
+                'nombre' => $jugador->nombre,
+                'idAlianza' => 999, // ID ficticio de la alianza simulada
+                'estado' => $jugador->estado,
+                'server' => $jugador->server,
+                'puntos' => $jugador->puntos->map(function ($punto) {
+                    return [
+                        'idPlayer' => $punto->idPlayer,
+                        'update' => $punto->update,
+                        'Totales' => $punto->Totales,
+                        'Constructor' => $punto->Constructor,
+                        'NivelConstruccion' => $punto->NivelConstruccion,
+                        'Investigadores' => $punto->Investigadores,
+                        'NivelInvestigadores' => $punto->NivelInvestigadores,
+                        'Generales' => $punto->Generales,
+                        'Oro' => $punto->Oro,
+                        'Donacion' => $punto->Donacion,
+                        'server' => $punto->server
+                    ];
+                })
+            ];
+        });
+
+        // Simular la alianza con nombre "BOCA" y los jugadores reales
+        $alianzaSimulada = [
+            'idalianza' => 999, // ID ficticio
+            'nombre' => 'BOOOOCA',
+            'server' => $servidor,
+            'players' => $jugadoresArray
+        ];
+
+        return response()->json($alianzaSimulada);
+    } else if ($idAlianza == "BOOOOT") {
+
+        $jugadoresEspecificos = [100022, 100049, 100087, 100125, 100144, 100195, 101231, 100210, 100253, 100259, 100300, 100332, 100351, 100379, 100404, 100444, 100453, 100499, 100520, 100564, 100577, 100669, 100710, 100736, 100765, 100780, 100810, 100853, 100899, 100931, 101005, 101025, 101040, 101048, 101102, 101146, 101151, 101181, 101197, 101202, 101253, 101280, 101286, 101347, 101380, 101416, 101427, 101438, 101448, 101539, 101550, 101570, 101603, 101608, 101638, 101676, 101701, 101725, 101736, 101741, 101770, 101781, 101785, 101836, 101843, 101907, 101924, 101927, 101938, 101944, 101956, 101960, 101979, 101984, 102006, 102015, 102039, 102052, 102068, 102079, 102085, 102116, 102228, 102307, 102308];
+
+        $jugadores = Player::where('server', $servidor)
+            ->whereIn('idplayer', $jugadoresEspecificos)
+            ->with([
+                'puntos' => function ($query) use ($maxUpdatePuntos) {
+                    $query->where('update', $maxUpdatePuntos);
+
+                }
+            ])
+            ->get();
+
+        $jugadoresArray = $jugadores->map(function ($jugador) {
+            return [
+                'idplayer' => $jugador->idplayer,
+                'nombre' => $jugador->nombre,
+                'idAlianza' => 999, // ID ficticio de la alianza simulada
+                'estado' => $jugador->estado,
+                'server' => $jugador->server,
+                'puntos' => $jugador->puntos->map(function ($punto) {
+                    return [
+                        'idPlayer' => $punto->idPlayer,
+                        'update' => $punto->update,
+                        'Totales' => $punto->Totales,
+                        'Constructor' => $punto->Constructor,
+                        'NivelConstruccion' => $punto->NivelConstruccion,
+                        'Investigadores' => $punto->Investigadores,
+                        'NivelInvestigadores' => $punto->NivelInvestigadores,
+                        'Generales' => $punto->Generales,
+                        'Oro' => $punto->Oro,
+                        'Donacion' => $punto->Donacion,
+                        'server' => $punto->server
+                    ];
+                })
+            ];
+        });
+
+        // Simular la alianza con nombre "BOCA" y los jugadores reales
+        $alianzaSimulada = [
+            'idalianza' => 999, // ID ficticio
+            'nombre' => 'BOOOOT',
+            'server' => $servidor,
+            'players' => $jugadoresArray
+        ];
+
+        return response()->json($alianzaSimulada);
+    } else {
+
+
+        $alianza = Alianza::with([
+            'players' => function ($query) use ($servidor, $maxUpdatePuntos) {
+                $query->where('server', $servidor)->with([
+                    'puntos' => function ($query) use ($maxUpdatePuntos) {
+                        $query->where('update', $maxUpdatePuntos);
+                    }
+                ]);
+            }
+        ])->where('idalianza', $idAlianza)->where('server', $servidor)->first();
+
+        return response()->json($alianza);
+    }
 });
 
 // Ruta para obtener las ciudades con el mayor nivel
