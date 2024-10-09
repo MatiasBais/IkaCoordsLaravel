@@ -64,35 +64,29 @@ function displayPlayers(players) {
     players.forEach((player) => {
         const row = document.createElement("tr");
         row.innerHTML = `
-      <td><a href="/player/${player.server}/${player.idplayer}">${
-            player.Player
-        }</a></td>
-      <td><a href="/alianza/${player.server}/${player.idalianza}">${
-            player.nombre ? player.nombre : "-"
-        }</a></td>
-        <td>${
-            player.totales
+      <td><a href="/player/${player.server}/${player.idplayer}">${player.Player
+            }</a></td>
+      <td><a href="/alianza/${player.server}/${player.idalianza}">${player.nombre ? player.nombre : "-"
+            }</a></td>
+        <td>${player.totales
                 ? player.totales.toLocaleString("en-US")
                 : "No disponible"
-        }</td>
-        <td>${
-            player.constructor
+            }</td>
+        <td>${player.constructor
                 ? player.constructor.toLocaleString("en-US")
                 : "No disponible"
-        }</td>
-        <td>${
-            player.generales
-                ? player.generales.toLocaleString("en-US")
-                : "No disponible"
-        }</td>
-        <td>${
-            player.investigadores
+            }</td>
+        <td>${player.investigadores
                 ? player.investigadores.toLocaleString("en-US")
                 : "No disponible"
-        }</td>
-        <td>${
-            player.oro ? player.oro.toLocaleString("en-US") : "No disponible"
-        }</td>
+            }</td>
+        <td>${player.generales
+                ? player.generales.toLocaleString("en-US")
+                : "No disponible"
+            }</td>
+       
+        <td>${player.oro ? player.oro.toLocaleString("en-US") : "No disponible"
+            }</td>
         `;
         table.appendChild(row);
     });
